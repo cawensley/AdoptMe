@@ -1,0 +1,46 @@
+{
+  "homepage": "https://cawensley.github.io/AdoptMe/",
+  "name": "adopt-me",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@frontendmasters/pet": "^1.0.3",
+    "@reach/router": "^1.2.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "3.2.0"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "format": "prettier \"src/**/*.{js,html}\" --write",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 2 Chrome version",
+      "last 2 ChromeAndroid version",
+      "last 2 Firefox version",
+      "last 2 FirefoxAndroid version",
+      "last 2 Safari version",
+      "last 2 iOS version",
+      "last 2 Edge version",
+      "last 2 Opera version",
+      "last 2 OperaMobile version"
+    ]
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  }
+}
