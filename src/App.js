@@ -3,8 +3,8 @@ import "./App.css"
 import createHashSource from 'hash-source';
 import {Router,createHistory,LocationProvider} from "@reach/router";
 import SearchParams from "./organisms/SearchParams";
-import Details from "./organisms/Details";
-import ThemeContext from "./atoms/ThemeContext";
+import Details from "./organisms/Details.tsx";
+import ThemeContext from "./atoms/ThemeContext.tsx";
 import NavBar from "./molecules/Navbar";
 
 let source = createHashSource();

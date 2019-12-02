@@ -2,7 +2,7 @@ import React, {useState , useEffect, useContext} from "react";
 import pet, {ANIMALS} from "@frontendmasters/pet";
 import useDropdown from "../molecules/useDropdown";
 import Results from "../molecules/Results";
-import ThemeContext from "../atoms/ThemeContext";
+import ThemeContext from "../atoms/ThemeContext.tsx";
 
 const SearchParams = () => {
     const [location,setLocation] = useState("Seattle, WA");
