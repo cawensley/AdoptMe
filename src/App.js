@@ -1,29 +1,29 @@
-import React,{useState} from "react";
+import React from "react";
 import "./App.css"
 import createHashSource from 'hash-source';
 import {Router,createHistory,LocationProvider} from "@reach/router";
+import {Provider} from 'react-redux';
 import SearchParams from "./organisms/SearchParams";
-import Details from "./organisms/Details.tsx";
-import ThemeContext from "./atoms/ThemeContext.tsx";
+import Details from "./organisms/Details.js";
 import NavBar from "./molecules/Navbar";
+import store from "./Redux/store";
 
 let source = createHashSource();
 let history = createHistory(source);
 
 const App = () => {
-      const themeHook = useState('darkblue');
       return (
-          <LocationProvider history={history}>
-              <ThemeContext.Provider value={themeHook}>
-                <div>
-                    <NavBar/>
-                    <Router>
-                        <SearchParams path="/" />
-                        <Details path="/details/:id" />
-                    </Router>
-                </div>
-              </ThemeContext.Provider>
-          </LocationProvider>
+          <Provider store={store}>
+              <LocationProvider history={history}>
+                    <div>
+                        <NavBar/>
+                        <Router>
+                            <SearchParams path="/" />
+                            <Details path="/details/:id" />
+                        </Router>
+                    </div>
+              </LocationProvider>
+          </Provider>
       );
 };
 

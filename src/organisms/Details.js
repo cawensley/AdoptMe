@@ -1,32 +1,18 @@
-import * as React from "react";
-import pet,{Photo} from "@frontendmasters/pet";
+import React from "react";
+import pet from "@frontendmasters/pet";
 import Carousel from "../molecules/Carousel";
 import ErrorBoundary from "../atoms/ErrorBoundary";
-import ThemeContext from "../atoms/ThemeContext";
-import {navigate, RouteComponentProps} from "@reach/router";
+import {navigate} from "@reach/router";
 import Modal from "../atoms/Modal";
+import {connect} from 'react-redux';
 
-class Details extends React.Component<RouteComponentProps<{id: string}>> {
-    public state = {
-        loading: true,
-        showModal: false,
-        name: "",
-        animal: "",
-        location: "",
-        description: "",
-        media: [] as Photo[],
-        url: "",
-        breed: ""
-    };
-    public componentDidMount() {
-        if (!this.props.id) {
-            navigate('/');
-            return;
-        }
-        pet.animal(+this.props.id)
+class Details extends React.Component {
+    state = {loading: true, showModal: false,};
+
+    componentDidMount() {
+        pet.animal(this.props.id)
             .then(({animal}) => {
                 this.setState({
-                    url: animal.url,
                     name: animal.name,
                     animal: animal.type,
                     location: `${animal.contact.address.city}, ${animal.contact.address.state}`,
@@ -38,10 +24,10 @@ class Details extends React.Component<RouteComponentProps<{id: string}>> {
             },console.error);
     }
 
-    public toggleModal = () => this.setState({showModal: !this.state.showModal});
-    public adopt = () => navigate(this.state.url);
+    toggleModal = () => this.setState({showModal: !this.state.showModal});
+    adopt = () => navigate(this.state.url);
 
-    public render () {
+    render () {
         if (this.state.loading) {return <h1>loading ...</h1>}
         const {animal,breed,location,description,name,media,showModal}= this.state;
 
@@ -51,9 +37,7 @@ class Details extends React.Component<RouteComponentProps<{id: string}>> {
                 <div>
                     <h1>{name}</h1>
                     <h2>{`${animal} - ${breed} - ${location}`}</h2>
-                    <ThemeContext.Consumer>
-                        {(themeHook)=>(<button onClick={this.toggleModal} style={{backgroundColor: themeHook[0]}}>Adopt {name}</button>)}
-                    </ThemeContext.Consumer>
+                    <button onClick={this.toggleModal} style={{backgroundColor: this.props.theme}}>Adopt {name}</button>
                     <p>{description}</p>
                     {
                         showModal ? (
@@ -71,10 +55,13 @@ class Details extends React.Component<RouteComponentProps<{id: string}>> {
             </div>)}
 }
 
-export default function DetailswithErrorBoundary(props: RouteComponentProps<{id: string}>) {
+const mapStatetoProps=({theme})=>({theme});
+const WrappedDetails = connect(mapStatetoProps)(Details);
+
+export default function DetailswithErrorBoundary(props) {
     return (
         <ErrorBoundary>
-            <Details {...props}/>
+            <WrappedDetails {...props}/>
         </ErrorBoundary>
     )
 }
